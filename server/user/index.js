@@ -21,7 +21,7 @@ router.post("/api/auth", function (request, response) {
   if (email && password) {
     // Execute SQL query that'll select the account from the database based on the specified username and password
     connection.query(
-      "SELECT * FROM ramos.user WHERE email = ? AND password = ?",
+      "SELECT * FROM user WHERE email = ? AND password = ?",
       [email, password],
       function (error, results, fields) {
         if (error) throw error;

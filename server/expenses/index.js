@@ -6,7 +6,7 @@ const transformPrice = require("../../utils/price/transformPrice");
 router.get("/api/despesas/:id", (req, res) => {
   const { id } = req.params;
   connection.query(
-    `SELECT * FROM ramos.despesas WHERE id_car = ${id}`,
+    `SELECT * FROM despesas WHERE id_car = ${id}`,
     (err, results) => {
       res.send(results);
     }
@@ -21,7 +21,7 @@ router.post("/api/update/despesas", (req, res) => {
   if (body.id_despesas) {
     const { description, value, id_despesas } = body;
     return connection.query(
-      `UPDATE ramos.despesas SET description = "${description}", value = "${transformPrice(
+      `UPDATE despesas SET description = "${description}", value = "${transformPrice(
         value
       )}", dt = "${date}" WHERE id_despesas = "${id_despesas}"`,
       (err, results, fields) => {
@@ -31,7 +31,7 @@ router.post("/api/update/despesas", (req, res) => {
   }
 
   return connection.query(
-    `INSERT INTO ramos.despesas(description, value, dt, id_car) VALUES("${
+    `INSERT INTO despesas(description, value, dt, id_car) VALUES("${
       body.description
     }", "${transformPrice(body.value)}", "${date}", ${body.id_car})`,
     (err, results, fields) => {
@@ -46,7 +46,7 @@ router.delete("/api/despesas/:id", (req, res) => {
   const { id } = req.params;
 
   return connection.query(
-    `DELETE FROM ramos.despesas WHERE id_despesas = ${id}`,
+    `DELETE FROM despesas WHERE id_despesas = ${id}`,
     (err, results, fields) => {
       if (results) return res.send({ status: 200 });
 

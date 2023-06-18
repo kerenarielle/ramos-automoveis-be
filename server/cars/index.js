@@ -10,8 +10,8 @@ const monthCompleted = (month) => {
 };
 
 router.get("/api/cars", (req, res) => {
-  const allCars = "SELECT * FROM ramos.cars";
-  const allDesoesas = "SELECT * FROM ramos.despesas";
+  const allCars = "SELECT * FROM cars";
+  const allDesoesas = "SELECT * FROM despesas";
 
   connection.query(allCars, (err, cars) => {
     connection.query(allDesoesas, function (err, despesas) {
@@ -31,7 +31,7 @@ router.get("/api/cars", (req, res) => {
 router.get("/api/car/:id", (req, res) => {
   const { id } = req.params;
   connection.query(
-    `SELECT * FROM ramos.cars WHERE id_car = ${id}`,
+    `SELECT * FROM cars WHERE id_car = ${id}`,
     (err, results) => {
       return res.send(results[0]);
     }
@@ -45,7 +45,7 @@ router.post("/api/update/car", (req, res) => {
   const condition = updateCar(body);
 
   return connection.query(
-    `UPDATE ramos.cars SET ${condition} WHERE id_car = ${id_car}`,
+    `UPDATE cars SET ${condition} WHERE id_car = ${id_car}`,
     (err, results, fields) => {
       if (results) return res.send({ status: 200 });
 
@@ -58,7 +58,7 @@ router.delete("/api/cars/:id", (req, res) => {
   const { id } = req.params;
 
   return connection.query(
-    `DELETE FROM ramos.cars WHERE id_car = ${id}`,
+    `DELETE FROM cars WHERE id_car = ${id}`,
     (err, results, fields) => {
       if (results) return res.send({ status: 200 });
 
@@ -72,7 +72,7 @@ router.post("/api/cars/create", (req, res) => {
   const { fields, values } = createCar(body);
 
   connection.query(
-    `INSERT INTO ramos.cars(${fields}) VALUES(${values})`,
+    `INSERT INTO cars(${fields}) VALUES(${values})`,
     (err, results, fields) => {
       res.send({ id: results.insertId });
     }
@@ -91,7 +91,7 @@ router.get("/api/cars/full", (req, res) => {
   )}-01" and dt_venda  <= "${year}${monthCompleted(month.toString())}-31"`;
 
   connection.query(
-    `SELECT * FROM ramos.cars WHERE (${dt_compra}) OR (${dt_venda})`,
+    `SELECT * FROM cars WHERE (${dt_compra}) OR (${dt_venda})`,
     (err, results) => {
       const vendido =
         (results && results.filter(({ dt_venda }) => dt_venda)) || [];
