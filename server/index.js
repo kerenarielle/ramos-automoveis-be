@@ -10,9 +10,8 @@ const carsRouter = require("./cars");
 const expensesRouter = require("./expenses");
 const userRouter = require("./user");
 
-const app = express(),
-  bodyParser = require("body-parser");
-port = 3080;
+const app = express();
+const bodyParser = require("body-parser");
 
 app.use(cors());
 app.use(bodyParser.json());
