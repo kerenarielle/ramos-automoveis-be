@@ -3,8 +3,10 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
 
-const PORT = process.env.PORT || 3080;
+const PORT = process.env.APP_PORT || 3080;
 
 const carsRouter = require("./cars");
 const expensesRouter = require("./expenses");
@@ -21,4 +23,6 @@ app.use(carsRouter);
 app.use(expensesRouter);
 app.use(userRouter);
 
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`Server listening on the port::${PORT}`);
+});
