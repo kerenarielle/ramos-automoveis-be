@@ -6,7 +6,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const PORT = process.env.APP_PORT || 3080;
+const PORT = process.env.APP_URL || 3080;
 
 const carsRouter = require("./cars");
 const expensesRouter = require("./expenses");
