@@ -4,6 +4,8 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const http = require("http");
+
 dotenv.config();
 
 const PORT = process.env.PORT || 3080;
@@ -13,6 +15,7 @@ const expensesRouter = require("./expenses");
 const userRouter = require("./user");
 
 const app = express();
+
 const bodyParser = require("body-parser");
 
 app.use(cors({ AccessControlAllowOrigin: "*" }));
@@ -23,4 +26,4 @@ app.use(carsRouter);
 app.use(expensesRouter);
 app.use(userRouter);
 
-app.listen(PORT);
+http.createServer(app).listen(PORT);
