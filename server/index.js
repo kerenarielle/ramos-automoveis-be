@@ -15,7 +15,7 @@ const userRouter = require("./user");
 const app = express();
 const bodyParser = require("body-parser");
 
-app.use(cors());
+app.use(cors({ AccessControlAllowOrigin: "*" }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "../backend/out")));
 
@@ -23,6 +23,4 @@ app.use(carsRouter);
 app.use(expensesRouter);
 app.use(userRouter);
 
-app.listen(PORT, () => {
-  console.log(`Server listening on the port::${PORT}`);
-});
+app.listen(PORT);
