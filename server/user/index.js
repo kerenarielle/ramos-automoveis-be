@@ -1,17 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const session = require("express-session");
-const path = require("path");
 const jwt = require("jsonwebtoken");
 const connection = require("../db");
-
-router.use(
-  session({
-    secret: "webslesson",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
 
 router.post("/api/auth", function (request, response) {
   // Capture the input fields
