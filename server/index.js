@@ -18,7 +18,13 @@ const app = express();
 
 const bodyParser = require("body-parser");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://ramos-automoveis-fe-47a51f7ed71c.herokuapp.com/",
+    methods: ["GET", "POST", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "../backend/out")));
 
