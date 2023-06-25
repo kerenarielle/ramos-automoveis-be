@@ -18,7 +18,9 @@ const app = express();
 
 const bodyParser = require("body-parser");
 
-app.use(cors({ AccessControlAllowOrigin: "*" }));
+app.use(
+  cors({ origin: "https://ramos-automoveis-fe-47a51f7ed71c.herokuapp.com" })
+);
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "../backend/out")));
 
