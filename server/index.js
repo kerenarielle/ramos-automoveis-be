@@ -18,9 +18,6 @@ const app = express();
 
 const bodyParser = require("body-parser");
 
-// Verifica se está no ambiente de produção
-const isProduction = process.env.NODE_ENV === "production";
-
 // Middleware de CORS
 app.use(
   cors({
