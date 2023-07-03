@@ -1,5 +1,13 @@
-const moment = require("moment");
 const transformPrice = require("../price/transformPrice");
+
+const formatBRL = (dt) =>
+  new Date(dt)
+    .toLocaleDateString("pt-BR", {
+      timeZone: "UTC",
+    })
+    .split("/")
+    .reverse()
+    .join("/");
 
 const createCar = (body) => {
   const {
@@ -15,16 +23,14 @@ const createCar = (body) => {
     comprador,
     consignado,
   } = body;
-  const conditionRequired = `"${marca}","${modelo}","${cor}","${ano}","${placa}","${new Date(
+  const conditionRequired = `"${marca}","${modelo}","${cor}","${ano}","${placa}","${formatBRL(
     dt_compra
-  ).toLocaleDateString("en-ZA", {
-    timeZone: "UTC",
-  })}","${transformPrice(valor_compra)}",${consignado ? 1 : 0}`;
+  )}","${transformPrice(valor_compra)}",${consignado ? 1 : 0}`;
   const compradorOption = `${comprador && `,"${comprador}"`}`;
   const valorVendaOption = `${
     valor_venda && `,"${transformPrice(valor_venda)}"`
   }`;
-  const dtVendaOption = `${dt_venda && `,"${dt_venda}"`}`;
+  const dtVendaOption = `${dt_venda && `,"${formatBRL(dt_venda)}"`}`;
 
   const queryFields = `marca, modelo, cor, ano, placa, dt_compra, valor_compra, consignado`;
 
@@ -59,18 +65,11 @@ const updateCar = (body) => {
     cor = "${cor}",
     ano = "${ano}",
     placa = "${placa}",
-    dt_compra = "${new Date(dt_compra).toLocaleDateString("en-ZA", {
-      timeZone: "UTC",
-    })}",
+    dt_compra = "${formatBRL(dt_compra)}",
     valor_compra = "${transformPrice(valor_compra)}",
     consignado = "${consignado ? 1 : 0}",
     comprador = "${comprador}"
-    ${
-      dt_venda &&
-      `, dt_venda = "${new Date(dt_venda).toLocaleDateString("en-ZA", {
-        timeZone: "UTC",
-      })}"`
-    }
+    ${dt_venda && `, dt_venda = "${formatBRL(dt_venda)}"`}
     ${valor_venda && `, valor_venda = "${transformPrice(valor_venda)}"`}`;
 };
 
