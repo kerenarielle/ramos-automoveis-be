@@ -24,7 +24,6 @@ const isProduction = process.env.NODE_ENV === "production";
 // Middleware de CORS
 app.use(
   cors({
-    "Access-Control-Allow-Origin": "*",
     origin: process.env.APP_CORS,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     credentials: true,
