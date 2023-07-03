@@ -1,13 +1,17 @@
 const transformPrice = require("../price/transformPrice");
 
-const formatBRL = (dt) =>
-  new Date(dt)
+const formatBRL = (dt) => {
+  const dateFormat = dt.replaceAll("-", "/");
+  const date = new Date(dateFormat);
+
+  return date
     .toLocaleDateString("pt-BR", {
       timeZone: "America/Sao_Paulo",
     })
     .split("/")
     .reverse()
     .join("/");
+};
 
 const createCar = (body) => {
   const {
