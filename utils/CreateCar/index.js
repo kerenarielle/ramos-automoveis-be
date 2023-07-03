@@ -1,8 +1,11 @@
 const transformPrice = require("../price/transformPrice");
 
 const formatBRL = (dt) => {
-  const dateFormat = dt.replaceAll("-", "/");
-  const date = new Date(dateFormat);
+  const [year, month, day] = dt.split("-");
+  const date = new Date(
+    Date.UTC(Number(year), Number(month) - 1, Number(day), 0, 0, 0)
+  );
+  date.setUTCHours(date.getUTCHours() + 3); // Adiciona 3 horas para compensar o fuso horário da Heroku
 
   return date
     .toLocaleDateString("pt-BR", {
