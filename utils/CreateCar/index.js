@@ -5,7 +5,7 @@ const formatBRL = (dt) => {
   const date = new Date(
     Date.UTC(Number(year), Number(month) - 1, Number(day), 0, 0, 0)
   );
-  date.setUTCHours(date.getUTCHours() + 3); // Adiciona 3 horas para compensar o fuso horário da Heroku
+  date.setUTCHours(date.getUTCHours() + 12); // Adiciona 3 horas para compensar o fuso horário da Heroku
 
   return date
     .toLocaleDateString("pt-BR", {
