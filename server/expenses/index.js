@@ -20,7 +20,22 @@ router.get("/api/despesas/:id", async (req, res) => {
 router.post("/api/update/despesas", async (req, res) => {
   const { body } = req;
 
-  const date = new Date(body.dt).toLocaleDateString("en-CA");
+  const formatBRL = (dt) => {
+    const [year, month, day] = dt.split("-");
+    const date = new Date(
+      Date.UTC(Number(year), Number(month) - 1, Number(day), 0, 0, 0)
+    );
+    date.setUTCHours(date.getUTCHours() + 12); // Adiciona 3 horas para compensar o fuso horário da Heroku
+
+    return date
+      .toLocaleDateString("pt-BR", {
+        timeZone: "America/Sao_Paulo",
+      })
+      .split("/")
+      .reverse()
+      .join("/");
+  };
+  const date = formatBRL(body.dt);
 
   if (body.id_despesas) {
     const { description, value, id_despesas } = body;
