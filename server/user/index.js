@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const connection = require("../db");
 
 router.post("/api/auth", async (request, response) => {
-  console.log("bateu aqui");
   try {
     // Capture the input fields
     const { email, password } = request.body;

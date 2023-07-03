@@ -18,13 +18,19 @@ const app = express();
 
 const bodyParser = require("body-parser");
 
+// Verifica se está no ambiente de produção
+const isProduction = process.env.NODE_ENV === "production";
+
+// Middleware de CORS
 app.use(
   cors({
-    origin: "https://ramos-automoveis-fe-47a51f7ed71c.herokuapp.com",
+    "Access-Control-Allow-Origin": "*",
+    origin: process.env.APP_CORS,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     credentials: true,
   })
 );
+
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "../backend/out")));
 

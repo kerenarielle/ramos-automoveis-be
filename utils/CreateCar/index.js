@@ -17,9 +17,9 @@ const createCar = (body) => {
   } = body;
   const conditionRequired = `"${marca}","${modelo}","${cor}","${ano}","${placa}","${new Date(
     dt_compra
-  ).toLocaleDateString("en-ZA")}","${transformPrice(valor_compra)}",${
-    consignado ? 1 : 0
-  }`;
+  ).toLocaleDateString("en-ZA", {
+    timeZone: "UTC",
+  })}","${transformPrice(valor_compra)}",${consignado ? 1 : 0}`;
   const compradorOption = `${comprador && `,"${comprador}"`}`;
   const valorVendaOption = `${
     valor_venda && `,"${transformPrice(valor_venda)}"`
@@ -59,13 +59,17 @@ const updateCar = (body) => {
     cor = "${cor}",
     ano = "${ano}",
     placa = "${placa}",
-    dt_compra = "${new Date(dt_compra).toLocaleDateString("en-ZA")}",
+    dt_compra = "${new Date(dt_compra).toLocaleDateString("en-ZA", {
+      timeZone: "UTC",
+    })}",
     valor_compra = "${transformPrice(valor_compra)}",
     consignado = "${consignado ? 1 : 0}",
     comprador = "${comprador}"
     ${
       dt_venda &&
-      `, dt_venda = "${new Date(dt_venda).toLocaleDateString("en-ZA")}"`
+      `, dt_venda = "${new Date(dt_venda).toLocaleDateString("en-ZA", {
+        timeZone: "UTC",
+      })}"`
     }
     ${valor_venda && `, valor_venda = "${transformPrice(valor_venda)}"`}`;
 };

@@ -39,6 +39,7 @@ router.get("/api/car/:id", async (req, res) => {
       `SELECT * FROM cars WHERE id_car = ?`,
       [id]
     );
+
     return res.send(results[0]);
   } catch (error) {
     console.error(error);
@@ -86,9 +87,10 @@ router.post("/api/cars/create", async (req, res) => {
   const { fields, values } = createCar(body);
 
   try {
-    const [results, fields] = await connection.execute(
+    const [results, field] = await connection.execute(
       `INSERT INTO cars(${fields}) VALUES(${values})`
     );
+
     res.send({ id: results.insertId });
   } catch (error) {
     console.error(error);
