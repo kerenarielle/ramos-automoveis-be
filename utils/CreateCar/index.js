@@ -3,7 +3,7 @@ const transformPrice = require("../price/transformPrice");
 const formatBRL = (dt) =>
   new Date(dt)
     .toLocaleDateString("pt-BR", {
-      timeZone: "UTC",
+      timeZone: "America/Sao_Paulo",
     })
     .split("/")
     .reverse()
