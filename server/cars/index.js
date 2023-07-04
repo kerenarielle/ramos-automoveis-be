@@ -70,6 +70,11 @@ router.delete("/api/cars/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
+    const [resultsDespesas] = await connection.execute(
+      `DELETE FROM despesas WHERE id_car = ?`,
+      [id]
+    );
+
     const [results, fields] = await connection.execute(
       `DELETE FROM cars WHERE id_car = ?`,
       [id]
